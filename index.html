@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Revyze — Revyze Your Life</title>
+<meta name="description" content="An 8-week transformation program for adults ready to revise their body and their life. Built around you. Guaranteed." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Mono:wght@400;500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0E0E0C;
+    --paper: #F4F1EC;
+    --paper-soft: #ECE7DE;
+    --paper-deep: #E4DED2;
+    --rule: #C9C3B6;
+    --muted: #6B665C;
+    --accent: #B85530;       /* burnt sienna - editorial accent */
+    --accent-deep: #8E3F22;
+    --highlight: #D9CFB8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .serif { font-family: "Fraunces", serif; font-variation-settings: "SOFT" 50; }
+  .mono { font-family: "DM Mono", monospace; }
+  .sans { font-family: "Inter Tight", sans-serif; }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+
+  /* --- NAV --- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 32px;
+    backdrop-filter: blur(12px);
+    background: rgba(244, 241, 236, 0.85);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-inner { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .logo-wrap { display: flex; align-items: center; gap: 12px; }
+  .logo-mark { width: 22px; height: 30px; }
+  .logo-mark svg { width: 100%; height: 100%; }
+  .logo-text {
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .nav-cta {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    transition: all 0.25s ease;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--paper); }
+
+  /* --- HERO --- */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 32px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-soft) 100%);
+  }
+  .hero-grain {
+    position: absolute; inset: 0;
+    opacity: 0.4;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.06 0 0 0 0 0.06 0 0 0 0 0.05 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-inner { position: relative; max-width: 1240px; margin: 0 auto; width: 100%; }
+
+  .eyebrow {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 14px;
+    opacity: 0; animation: fadeUp 0.9s ease 0.1s forwards;
+  }
+  .eyebrow::before {
+    content: ""; display: block; width: 32px; height: 1px; background: var(--accent);
+  }
+
+  .hero-headline {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-variation-settings: "SOFT" 100;
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 14ch;
+    margin-bottom: 40px;
+    opacity: 0; animation: fadeUp 1.1s ease 0.25s forwards;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .hero-sub {
+    font-size: clamp(17px, 1.6vw, 21px);
+    color: var(--muted);
+    max-width: 56ch;
+    margin-bottom: 56px;
+    line-height: 1.55;
+    opacity: 0; animation: fadeUp 1.1s ease 0.4s forwards;
+  }
+
+  .hero-cta-row {
+    display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1.1s ease 0.55s forwards;
+  }
+  .btn-primary {
+    font-family: "Inter Tight", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 18px 36px;
+    border-radius: 999px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.25s ease;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--accent-deep); transform: translateY(-1px); }
+  .btn-primary svg { width: 14px; height: 14px; transition: transform 0.25s ease; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .hero-meta {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  .hero-footer {
+    position: absolute; bottom: 40px; left: 32px; right: 32px;
+    max-width: 1240px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0; animation: fadeUp 1.1s ease 0.8s forwards;
+  }
+  .hero-footer-right { text-align: right; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- SECTION BASICS --- */
+  .section { padding: 140px 32px; position: relative; }
+  .section-label {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: attr(data-num);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .section-heading {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-size: clamp(36px, 5.5vw, 68px);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+    max-width: 18ch;
+  }
+  .section-heading em { font-style: italic; font-weight: 300; color: var(--accent); }
+
+  /* --- THE PROBLEM --- */
+  .problem {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .problem .section-label { color: rgba(244, 241, 236, 0.55); }
+  .problem .section-label::before { color: var(--accent); }
+  .problem-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 100px;
+    align-items: start;
+  }
+  .problem-text {
+    font-size: 20px;
+    line-height: 1.55;
+    color: rgba(244, 241, 236, 0.78);
+  }
+  .problem-text p { margin-bottom: 24px; }
+  .problem-text strong { color: var(--paper); font-weight: 500; }
+
+  /* --- THE PROMISE BOX --- */
+  .promise-section {
+    padding: 100px 32px;
+    background: var(--paper);
+  }
+  .promise-box {
+    max-width: 1080px; margin: 0 auto;
+    padding: 80px 60px;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    position: relative;
+    text-align: center;
+  }
+  .promise-corners::before,
+  .promise-corners::after,
+  .promise-corners-bottom::before,
+  .promise-corners-bottom::after {
+    content: ""; position: absolute; width: 24px; height: 24px;
+    border-color: var(--ink);
+  }
+  .promise-corners::before { top: -1px; left: -1px; border-top: 2px solid var(--ink); border-left: 2px solid var(--ink); }
+  .promise-corners::after { top: -1px; right: -1px; border-top: 2px solid var(--ink); border-right: 2px solid var(--ink); }
+  .promise-corners-bottom::before { bottom: -1px; left: -1px; border-bottom: 2px solid var(--ink); border-left: 2px solid var(--ink); }
+  .promise-corners-bottom::after { bottom: -1px; right: -1px; border-bottom: 2px solid var(--ink); border-right: 2px solid var(--ink); }
+
+  .promise-label {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .promise-text {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.18;
+    letter-spacing: -0.018em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin: 0 auto;
+  }
+  .promise-text em { font-style: italic; color: var(--accent-deep); font-weight: 300; }
+
+  /* --- WHO IT'S FOR --- */
+  .who { background: var(--paper-soft); }
+  .who-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: center;
+  }
+  .who-text {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .who-text p { margin-bottom: 22px; }
+  .who-text p:last-child {
+    font-family: "Fraunces", serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.3;
+    color: var(--accent-deep);
+    border-left: 2px solid var(--accent);
+    padding-left: 24px;
+    margin-top: 36px;
+  }
+
+  .who-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 40px;
+    border-radius: 4px;
+    position: relative;
+  }
+  .who-card-title {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .who-checks { list-style: none; }
+  .who-checks li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .who-checks li:last-child { border-bottom: none; }
+  .who-checks li::before {
+    content: ""; flex-shrink: 0;
+    width: 8px; height: 8px;
+    margin-top: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* --- WHAT YOU GET / VALUE STACK --- */
+  .stack { background: var(--paper); }
+  .stack-intro {
+    max-width: 720px; margin-bottom: 80px;
+  }
+  .stack-intro p {
+    font-size: 19px; color: var(--muted); line-height: 1.55;
+  }
+  .stack-list {
+    max-width: 980px;
+    border-top: 1px solid var(--ink);
+  }
+  .stack-item {
+    display: grid; grid-template-columns: 60px 1fr auto;
+    gap: 32px; align-items: center;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: padding-left 0.25s ease;
+  }
+  .stack-item:hover { padding-left: 12px; }
+  .stack-num {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .stack-title {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .stack-title small {
+    display: block;
+    font-family: "Inter Tight", sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+  .stack-value {
+    font-family: "DM Mono", monospace;
+    font-size: 14px;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .stack-totals {
+    max-width: 980px;
+    margin-top: 40px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 28px;
+    border-top: 2px solid var(--ink);
+  }
+  .stack-totals-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 14px;
+  }
+  .stack-totals-wrap { max-width: 980px; margin-top: 32px; }
+  .totals-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 18px 0;
+  }
+  .totals-line.strike .label,
+  .totals-line.strike .val {
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(107, 102, 92, 0.5);
+  }
+  .totals-line .label {
+    font-family: "DM Mono", monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .totals-line .val {
+    font-family: "Fraunces", serif;
+    font-size: 28px;
+    font-weight: 500;
+  }
+  .totals-line.final {
+    border-top: 2px solid var(--ink);
+    padding-top: 28px;
+    margin-top: 14px;
+  }
+  .totals-line.final .label { color: var(--ink); font-weight: 500; }
+  .totals-line.final .val {
+    font-size: clamp(48px, 6vw, 72px);
+    color: var(--accent-deep);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  /* --- GUARANTEE --- */
+  .guarantee {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 120px 32px;
+  }
+  .guarantee-inner {
+    max-width: 980px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px;
+    align-items: start;
+  }
+  .guarantee .section-label { color: rgba(244, 241, 236, 0.55); }
+  .guarantee-headline {
+    font-family: "Fraunces", serif;
+    font-weight: 400;
+    font-size: clamp(34px, 4.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 0;
+  }
+  .guarantee-headline em { font-style: italic; color: var(--accent); }
+  .guarantee-body {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(244, 241, 236, 0.8);
+  }
+  .guarantee-body p { margin-bottom: 20px; }
+  .guarantee-body strong { color: var(--paper); font-weight: 500; }
+  .guarantee-seal {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-top: 24px;
+    padding: 14px 22px;
+    border: 1px solid var(--paper);
+    border-radius: 999px;
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* --- WHY THIS WORKS --- */
+  .why { background: var(--paper-soft); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    margin-top: 60px;
+  }
+  .why-card {
+    padding: 36px 28px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+  }
+  .why-card:hover { transform: translateY(-4px); border-color: var(--ink); }
+  .why-num {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .why-title {
+    font-family: "Fraunces", serif;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+  }
+  .why-text {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  /* --- PRICING / FOUNDING COHORT --- */
+  .pricing {
+    background: var(--paper);
+    padding: 140px 32px;
+  }
+  .pricing-inner { max-width: 980px; margin: 0 auto; }
+  .cohort-banner {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 18px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 999px;
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .cohort-dot {
+    width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .pricing-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 56px;
+  }
+  .price-card {
+    padding: 48px 40px;
+    border: 1px solid var(--rule);
+    background: var(--paper-soft);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .price-card.featured {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .price-card:hover { transform: translateY(-4px); }
+  .price-card.featured::after {
+    content: "BEST VALUE";
+    position: absolute; top: -12px; right: 28px;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  .price-label {
+    font-family: "DM Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .price-card.featured .price-label { color: rgba(244, 241, 236, 0.6); }
+  .price-amount {
+    font-family: "Fraunces", serif;
+    font-size: 68px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+  .price-amount .currency {
+    font-size: 32px; vertical-align: super; margin-right: 2px;
+    color: var(--muted);
+  }
+  .price-card.featured .price-amount .currency { color: rgba(244, 241, 236, 0.55); }
+  .price-detail {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+  .price-card.featured .price-detail { color: rgba(244, 241, 236, 0.7); }
+  .price-cta {
+    display: block;
+    text-align: center;
+    padding: 16px 24px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    transition: all 0.25s ease;
+  }
+  .price-card.featured .price-cta { background: var(--paper); color: var(--ink); }
+  .price-cta:hover { background: var(--accent-deep); color: var(--paper); }
+  .price-card.featured .price-cta:hover { background: var(--accent); color: var(--paper); }
+
+  .spots-meter {
+    margin-top: 56px; padding: 32px;
+    background: var(--paper-soft);
+    border-left: 3px solid var(--accent);
+  }
+  .spots-meter-label {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .spots-meter-bar {
+    height: 4px; background: var(--paper-deep); border-radius: 2px;
+    margin-bottom: 14px; overflow: hidden;
+  }
+  .spots-meter-fill {
+    height: 100%; background: var(--accent);
+    width: 40%; border-radius: 2px;
+  }
+  .spots-meter-text {
+    font-family: "Fraunces", serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .spots-meter-text strong { font-style: normal; font-weight: 500; color: var(--accent-deep); }
+
+  /* --- FAQ --- */
+  .faq { background: var(--paper-soft); padding: 140px 32px; }
+  .faq-list { max-width: 880px; margin: 60px auto 0; border-top: 1px solid var(--ink); }
+  .faq-item { border-bottom: 1px solid var(--rule); }
+  .faq-q {
+    padding: 28px 0;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "Fraunces", serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    transition: color 0.2s ease;
+  }
+  .faq-q:hover { color: var(--accent-deep); }
+  .faq-q-icon {
+    font-family: "DM Mono", monospace;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    color: var(--accent);
+  }
+  .faq-item.open .faq-q-icon { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  .faq-item.open .faq-a {
+    max-height: 400px;
+    padding: 0 0 32px 0;
+  }
+
+  /* --- FINAL CTA --- */
+  .final {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 160px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final::before {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 0.95 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .final-inner { position: relative; max-width: 880px; margin: 0 auto; }
+  .final-mark {
+    width: 36px; height: 50px;
+    margin: 0 auto 40px;
+    opacity: 0.9;
+  }
+  .final h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 32px;
+  }
+  .final h2 em { font-style: italic; color: var(--accent); font-weight: 400; }
+  .final p {
+    font-size: 19px;
+    color: rgba(244, 241, 236, 0.7);
+    max-width: 50ch;
+    margin: 0 auto 48px;
+    line-height: 1.55;
+  }
+  .final .btn-primary {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 22px 44px;
+    font-size: 16px;
+  }
+  .final .btn-primary:hover { background: var(--accent); color: var(--paper); }
+  .final-fineprint {
+    margin-top: 48px;
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(244, 241, 236, 0.4);
+    text-transform: uppercase;
+  }
+
+  /* --- FOOTER --- */
+  .footer {
+    background: var(--ink);
+    color: rgba(244, 241, 236, 0.5);
+    padding: 40px 32px;
+    border-top: 1px solid rgba(244, 241, 236, 0.1);
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .footer-inner {
+    max-width: 1240px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 900px) {
+    .section { padding: 90px 24px; }
+    .problem-grid, .who-grid, .guarantee-inner { grid-template-columns: 1fr; gap: 48px; }
+    .stack-item { grid-template-columns: 40px 1fr; gap: 16px; }
+    .stack-value { grid-column: 2; margin-top: 8px; }
+    .why-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .hero { padding: 120px 24px 80px; }
+    .hero-footer { position: static; margin-top: 60px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .hero-footer-right { text-align: left; }
+    .promise-box { padding: 56px 32px; }
+    .nav-cta { padding: 8px 14px; font-size: 11px; }
+  }
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .section-heading { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="logo-wrap">
+      <div class="logo-mark">
+        <svg viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="4,2 6,2 5,28" fill="#0E0E0C"/>
+          <polygon points="10,0 12,0 11,30" fill="#0E0E0C"/>
+          <polygon points="16,4 18,4 17,26" fill="#0E0E0C"/>
+        </svg>
+      </div>
+      <span class="logo-text">Revyze</span>
+    </div>
+    <a href="#enroll" class="nav-cta">Enroll</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">An 8-Week Transformation</div>
+    <h1 class="hero-headline">Revise the body you stopped <em>recognizing.</em></h1>
+    <p class="hero-sub">For men and women who used to feel sharp, lean, and full of energy, and want it back. Two coaches. One transformation. Built around your life, not someone else's.</p>
+    <div class="hero-cta-row">
+      <a href="#enroll" class="btn-primary">
+        Book Your Revision
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <span class="hero-meta">15 min · No pressure · Founding cohort enrolling</span>
+    </div>
+  </div>
+  <div class="hero-footer">
+    <div>The Revyze Method · Est. 2026</div>
+    <div class="hero-footer-right">Revyze Your Life</div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label" data-num="01">The Disconnect</div>
+        <h2 class="section-heading">You didn't fall apart. You <em>disconnected.</em></h2>
+      </div>
+      <div class="problem-text">
+        <p>It happened slowly. A work crunch became a year. A bad knee became a permanent excuse. The mirror started lying or telling the truth, depending on the day.</p>
+        <p>You've tried the apps. You've tried the gyms. You've cut carbs for a week. <strong>None of it stuck because none of it was built around you.</strong></p>
+        <p>You're not lazy. You're not broken. You're a busy adult who was sold programs designed for 24-year-olds with nothing else going on. That ends here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise-section">
+  <div class="promise-box">
+    <div class="promise-corners"></div>
+    <div class="promise-corners-bottom"></div>
+    <div class="promise-label">The Promise</div>
+    <p class="promise-text">Lose 15 to 25 pounds, drop two pant sizes, and feel like you did when you were <em>younger</em>, in 8 weeks, without giving up your social life.</p>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="section who">
+  <div class="container">
+    <div class="section-label" data-num="02">Built for adults</div>
+    <h2 class="section-heading">If this sounds like <em>you,</em> read on.</h2>
+    <div class="who-grid">
+      <div class="who-text">
+        <p>You have a career, maybe kids, maybe both. You used to be in shape, or at least closer to it than you are now.</p>
+        <p>You don't need motivation. You need a system. You don't need a 5 AM bootcamp. You need a plan that fits the life you actually live.</p>
+        <p>This isn't a fitness program. It's a revision.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-card-title">The Revyze Client</div>
+        <ul class="who-checks">
+          <li>Wants visible change in weeks, not years.</li>
+          <li>Has tried programs that didn't last.</li>
+          <li>Values restraint over hype.</li>
+          <li>Has the money. Wants the result.</li>
+          <li>Will trade convenience for transformation.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE STACK -->
+<section class="section stack" id="program">
+  <div class="container">
+    <div class="section-label" data-num="03">What's Included</div>
+    <h2 class="section-heading">Eight weeks. <em>One transformation.</em></h2>
+    <div class="stack-intro">
+      <p>Two specialists. One on training. One on nutrition. Working together on your single transformation. This is the entire program.</p>
+    </div>
+
+    <div class="stack-list">
+      <div class="stack-item">
+        <div class="stack-num">01</div>
+        <div class="stack-title">Personalized 8-Week Training Program<small>Progressive strength and conditioning, built around your schedule and injuries.</small></div>
+        <div class="stack-value">$800</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">02</div>
+        <div class="stack-title">Custom Macro-Based Meal Plan<small>Weekly adjustments based on your check-ins, designed for adults with real lives.</small></div>
+        <div class="stack-value">$600</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">03</div>
+        <div class="stack-title">The Revyze Reset<small>A structured juicing and fasting protocol that compresses weeks of progress into days.</small></div>
+        <div class="stack-value">$400</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">04</div>
+        <div class="stack-title">5-Day Cleanse Kit<small>Cold-pressed juices delivered to your door at the start of the program. Packaging included.</small></div>
+        <div class="stack-value">$200</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">05</div>
+        <div class="stack-title">Weekly 1-on-1 Coaching Calls<small>Eight total. Alternating between your training coach and nutrition coach.</small></div>
+        <div class="stack-value">$1,200</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">06</div>
+        <div class="stack-title">Private Client Group<small>A small, vetted community of peers in the same fight. No noise.</small></div>
+        <div class="stack-value">$300</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">07</div>
+        <div class="stack-title">Daily Check-In via Text<small>Every day. Accountability that's impossible to ghost.</small></div>
+        <div class="stack-value">$400</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-num">08</div>
+        <div class="stack-title">Lifetime Library Access<small>Every recipe, every workout, every protocol. Yours forever.</small></div>
+        <div class="stack-value">$500</div>
+      </div>
+    </div>
+
+    <div class="stack-totals-wrap">
+      <div class="totals-line strike">
+        <span class="label">Total Stacked Value</span>
+        <span class="val">$4,400</span>
+      </div>
+      <div class="totals-line final">
+        <span class="label">Your Investment</span>
+        <span class="val">$997</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="section guarantee">
+  <div class="guarantee-inner">
+    <div>
+      <div class="section-label" data-num="04">The Guarantee</div>
+      <h2 class="guarantee-headline">The risk is <em>ours.</em> Not yours.</h2>
+    </div>
+    <div class="guarantee-body">
+      <p>Show up to 80% of your coaching calls. Follow the meal plan. Complete the workouts.</p>
+      <p><strong>If you haven't lost at least 12 pounds in 8 weeks, we refund 100% of your money.</strong> You keep the juice cleanse kit. You keep the recipe library. You keep lifetime access to the content.</p>
+      <p>We can offer this because we know what happens when adults follow this system. The only way you don't get the result is if you don't show up. We can't help with that. Everything else is on us.</p>
+      <span class="guarantee-seal">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Full Money-Back Guarantee
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS WORKS -->
+<section class="section why">
+  <div class="container">
+    <div class="section-label" data-num="05">Why This Works</div>
+    <h2 class="section-heading">When <em>nothing else</em> has.</h2>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">/ 01</div>
+        <h3 class="why-title">Two Coaches, Not One</h3>
+        <p class="why-text">Most programs give you a trainer who guesses at nutrition, or a nutritionist who guesses at training. You get a specialist on both sides, talking to each other about you.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">/ 02</div>
+        <h3 class="why-title">Built for Real Lives</h3>
+        <p class="why-text">No two-a-days. No 5 AM bootcamps. No 14-day water fasts. Realistic protocols designed for people with jobs, partners, and obligations.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">/ 03</div>
+        <h3 class="why-title">The Reset Phase</h3>
+        <p class="why-text">Structured fasting and cold-pressed nutrition compress weeks of progress into days. Most clients see visible change by Week 3.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">/ 04</div>
+        <h3 class="why-title">Accountability That Sticks</h3>
+        <p class="why-text">Daily text check-ins. Weekly 1-on-1 calls. A private group of peers. You will not be able to disappear, and you will not want to.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="enroll">
+  <div class="pricing-inner">
+    <div class="section-label" data-num="06">Founding Cohort</div>
+    <h2 class="section-heading">Ten clients. <em>One cohort.</em> Then we close.</h2>
+    <p style="font-size: 19px; color: var(--muted); max-width: 60ch; margin-top: 24px; line-height: 1.55;">
+      We're taking only ten founding clients. Founding members receive lifetime grandfathered pricing on every future Revyze offering and a permanent designation in the community. Once the spots fill, enrollment closes until the next cohort opens.
+    </p>
+
+    <div class="cohort-banner" style="margin-top: 40px;">
+      <span class="cohort-dot"></span>
+      <span>Currently enrolling · 4 of 10 spots taken</span>
+    </div>
+
+    <div class="pricing-cards">
+      <div class="price-card">
+        <div class="price-label">Two Payments</div>
+        <div class="price-amount"><span class="currency">$</span>597</div>
+        <p class="price-detail">Today, then $597 in 30 days. Same access. Same guarantee.</p>
+        <a href="#" class="price-cta" onclick="bookCall(event, 'two-pay')">Book Your Revision</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-label">Pay in Full</div>
+        <div class="price-amount"><span class="currency">$</span>997</div>
+        <p class="price-detail">One payment. Save $197. Founding member status locked.</p>
+        <a href="#" class="price-cta" onclick="bookCall(event, 'full-pay')">Book Your Revision</a>
+      </div>
+    </div>
+
+    <div class="spots-meter">
+      <div class="spots-meter-label">Cohort Status</div>
+      <div class="spots-meter-bar">
+        <div class="spots-meter-fill"></div>
+      </div>
+      <p class="spots-meter-text"><strong>6 spots remaining.</strong> Cohort begins the first Monday after enrollment closes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container-narrow">
+    <div class="section-label" data-num="07">Questions</div>
+    <h2 class="section-heading">The honest <em>answers.</em></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">What if I have an injury or haven't worked out in years? <span class="faq-q-icon">+</span></div>
+        <div class="faq-a"><p>This is exactly who the program is built for. Your training coach will adjust everything around your current capacity. We've worked with shoulder reconstructions, bad knees, herniated discs, and decade-long gym hiatuses. The program meets you where you are.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do I need a gym membership? <span class="faq-q-icon">+</span></div>
+        <div class="faq-a"><p>No. The program can run entirely with a basic home setup (dumbbells, a bench, and a band), or scaled up to a fully equipped gym. We adapt to what you have.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How much time per week does this take? <span class="faq-q-icon">+</span></div>
+        <div class="faq-a"><p>Three to four 45-minute training sessions per week. Meal prep that fits a normal Sunday. The juice protocol runs five mornings during the Reset phase. That's it. No two-a-days.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is the juice cleanse mandatory? <span class="faq-q-icon">+</span></div>
+        <div class="faq-a"><p>For the 5-day Reset phase at the start of the program, yes. It's the accelerant. We deliver everything you need, and your nutrition coach walks you through it. After Week 1, juice becomes optional but recommended.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens after the 8 weeks? <span class="faq-q-icon">+</span></div>
+        <div class="faq-a"><p>Graduates can continue with Revyze Continue, our maintenance program at $97/month. Same community, updated workouts, ongoing nutrition support. About half of clients choose to continue. No pressure either way.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why only ten clients? <span class="faq-q-icon">+</span></div>
+        <div class="faq-a"><p>Because the daily check-ins and weekly 1-on-1 calls are real. Two coaches can give that level of attention to ten clients at a time and nothing more. We will not water down the program to grow faster.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="final-inner">
+    <div class="final-mark">
+      <svg viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="4,2 6,2 5,28" fill="#F4F1EC"/>
+        <polygon points="10,0 12,0 11,30" fill="#F4F1EC"/>
+        <polygon points="16,4 18,4 17,26" fill="#F4F1EC"/>
+      </svg>
+    </div>
+    <h2>The version of you that you <em>miss</em> is closer than you think.</h2>
+    <p>Book a 15-minute revision call. We'll confirm the program is right for you, answer your questions, and enroll you on the spot if it's a fit.</p>
+    <a href="#" class="btn-primary" onclick="bookCall(event, 'final')">
+      Book Your Revision
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+    <div class="final-fineprint">No pressure · No upsell · 15 minutes max</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>© 2026 Revyze · Revyze Your Life</div>
+    <div>joinrevyze.com</div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  // FAQ toggle
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+
+  // Booking handler — wire to Calendly later
+  function bookCall(e, source) {
+    e.preventDefault();
+    // Placeholder: replace with Calendly link or modal
+    alert('Calendly link goes here. Source: ' + source);
+  }
+</script>
+
+</body>
+</html>
